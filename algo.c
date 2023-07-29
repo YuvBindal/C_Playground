@@ -1,13 +1,82 @@
 #include <stdio.h>
-
-int main() {
-	
-	printf("%s","this is a code block");
-
-	//run code from here
-
-	return 0;
-}
+#include <string.h>
 
 //other functions go here
 
+struct keyValPair {
+	char key[50];
+	int value;
+};
+
+struct keyValPair dict[100];
+int dictSize = 0;
+
+
+void addElement(char *key, int value) {
+	if (dictSize <= 100) {
+		strcpy(dict[dictSize].key , key);
+		dict[dictSize].value = value;
+		dictSize++;
+	}
+
+}
+
+int getElement(char *key) {
+	//perform an O(n) search
+	for (int i=0;i < dictSize;i++) {
+		if (strcmp(dict[i].key , key) == 0) {
+			return dict[i].value;		
+		}
+	}
+	return -1;
+}
+void printDict() {
+	for (int i=0; i< dictSize; i++) {
+		printf("Key: %s, ", dict[i].key);
+		printf("Value: %d\n", dict[i].value);
+	}
+}
+
+
+int romanToInt(char* s) {
+	int findMaxIndex =0;
+	int maxVal = 0;
+	int total = 0;
+	for (int i=0; i< dictSize;i++) {
+		if (maxVal < dict[i].value) {
+			maxVal = dict[i].value;
+			findMaxIndex = i;
+		}
+	}	
+	for (int j = findMaxIndex; j < dictSize; j++) {
+		total += dict[j].value;
+	}
+	
+	if (findMaxIndex-1 >= 0) {
+		for (int k = findMaxIndex-1; k <= 0; k--) {
+			total -= dict[k].value;
+		}
+	}
+	
+	return total;
+
+}
+
+
+int main() {
+	
+	printf("%s\n","this is a code block");
+
+	//run code from here
+	addElement("I" ,1);
+	addElement("V", 5);
+	addElement("X",10);
+	addElement("L", 50);
+	addElement("C", 100);
+	addElement("D", 500);
+	addElement("M", 1000);
+
+	int myInt = romanToInt("MXII");	
+	printf("%d" , myInt);
+	return 0;
+}
