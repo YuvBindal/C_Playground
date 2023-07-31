@@ -38,29 +38,32 @@ void printDict() {
 }
 
 
-int romanToInt(char* s) {
+int romanToInt(char* s, int dictSize) {
 	int findMaxIndex =0;
 	int maxVal = 0;
 	int total = 0;
 	for (int i=0; i< dictSize;i++) {
-		if (maxVal < dict[i].value) {
-			maxVal = dict[i].value;
+		if (maxVal < getElement(&s[i])) {
+			maxVal = getElement(&s[i]);
 			findMaxIndex = i;
 		}
 	}	
 	for (int j = findMaxIndex; j < dictSize; j++) {
-		total += dict[j].value;
+		printf("%d\n", findMaxIndex);
+		total += getElement(&s[j]);
 	}
 	
 	if (findMaxIndex-1 >= 0) {
 		for (int k = findMaxIndex-1; k <= 0; k--) {
-			total -= dict[k].value;
+			total -= getElement(&s[k]);
 		}
 	}
 	
 	return total;
 
 }
+
+
 
 
 int main() {
@@ -76,7 +79,12 @@ int main() {
 	addElement("D", 500);
 	addElement("M", 1000);
 
-	int myInt = romanToInt("MXII");	
+
+	printf("%d", dictSize);
+
+	int myInt = romanToInt("MXII", 4);	
 	printf("%d" , myInt);
+	
+
 	return 0;
 }
