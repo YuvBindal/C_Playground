@@ -1,2 +1,2 @@
 # C_Playground
-playing around w C algorithms using Vim
+playing around w C algorithms using Vim IDE
